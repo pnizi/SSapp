@@ -4,10 +4,10 @@ import java.io.File;
 public class CheckFolder
 {
 	//Check for default folder if exists proceed else make it
-	public static boolean check()
+	public boolean check()
 	{
-		boolean complete=false;
 		File theDir=new File(System.getProperty("user.home"), "Desktop\\Screenshots");
+		boolean complete=false;
 		if(!theDir.exists())
 		{
 			theDir.mkdir();

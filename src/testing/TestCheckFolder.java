@@ -6,6 +6,7 @@ public class TestCheckFolder
 {
 	public static void main(String [] args)
 	{
-		CheckFolder.check();
+		CheckFolder x=new CheckFolder();
+		x.check();
 	}
 }

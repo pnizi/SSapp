@@ -10,24 +10,48 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class FullscreenSS 
-{
-	public void fullscreenScreenshot()
+public class FullscreenSS implements ISS
+{	
+	private String ssDir="\\Desktop\\Screenshots\\";
+	private CheckFolder cf=new CheckFolder();
+	
+	//Fullscreen SS
+	public void screenshot()
 	{
 		//check if folder exists if not it creates
-		if(CheckFolder.check())
+		if(cf.check())
 		{
-			try
-			{
-				BufferedImage image=new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
-				ImageIO.write(image,"png",new File(System.getProperty("user.home"+ "Desktop\\Screenshots\\ss1.png")));
-				System.out.println("Screenshoted");
-			} 
-			catch (HeadlessException | AWTException | IOException e)
-			{
-				e.printStackTrace();
-				System.out.println("Error: Cannot capture fullscreen SS");
-			}
+				try
+				{
+					//take SS
+					BufferedImage image=new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
+					//Write
+					ImageIO.write(image,"png",new File(System.getProperty("user.home")+generateImgName()));
+				} 
+				catch (HeadlessException | AWTException | IOException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("Screenshotted");	
 		}
+	}
+	public void hotkey()
+	{
+		//
+		
+	}
+	//generate unique name and formats directory
+	public String generateImgName()
+	{
+		StringBuilder strBuild=new StringBuilder();
+		String imgName=GenerateString.generateRandomString();
+		
+		strBuild.append(ssDir);
+		strBuild.append(imgName);
+		strBuild.append(".png");
+		
+		System.out.println(strBuild.toString());
+		return strBuild.toString();
 	}
 }
