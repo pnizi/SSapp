@@ -21,19 +21,19 @@ public class FullscreenSS implements ISS
 		//check if folder exists if not it creates
 		if(cf.check())
 		{
-				try
-				{
-					//take SS
-					BufferedImage image=new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
-					//Write
-					ImageIO.write(image,"png",new File(System.getProperty("user.home")+generateImgName()));
-				} 
-				catch (HeadlessException | AWTException | IOException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				System.out.println("Screenshotted");	
+			try
+			{
+				//take SS
+				BufferedImage image=new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
+				//Write
+				ImageIO.write(image,"png",new File(System.getProperty("user.home")+generateImgName()));
+			} 
+			catch (HeadlessException | AWTException | IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("Screenshotted");	
 		}
 	}
 	public void hotkey()
