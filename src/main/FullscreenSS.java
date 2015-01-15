@@ -7,12 +7,15 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 
 public class FullscreenSS implements ISS
 {	
-	private String ssDir="\\Desktop\\Screenshots\\";
+	private final String ssDir="\\Desktop\\Screenshots\\";
 	private CheckFolder cf=new CheckFolder();
 	
 	//Fullscreen SS
@@ -25,20 +28,20 @@ public class FullscreenSS implements ISS
 			{
 				//take SS
 				BufferedImage image=new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
-				//Write
-				ImageIO.write(image,"png",new File(System.getProperty("user.home")+generateImgName()));
+				//save to destination
+				ImageIO.write(image,"png",new File(System.getProperty("user.home")+generateImgNameAsTimestamp()));
 			} 
 			catch (HeadlessException | AWTException | IOException e)
 			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println("Screenshotted");	
 		}
+		
 	}
 	public void hotkey()
 	{
-		//
+		//inprog
 		
 	}
 	//generate unique name and formats directory
@@ -46,12 +49,27 @@ public class FullscreenSS implements ISS
 	{
 		StringBuilder strBuild=new StringBuilder();
 		String imgName=GenerateString.generateRandomString();
-		
+		//create dir string with filename
 		strBuild.append(ssDir);
 		strBuild.append(imgName);
 		strBuild.append(".png");
 		
-		System.out.println(strBuild.toString());
 		return strBuild.toString();
+	}
+	//Sets file name as timestamp 
+	public String generateImgNameAsTimestamp()
+	{
+		DateFormat dateFormat= new SimpleDateFormat("yyyy_MM_dd-HH_mm_ss");
+		Date date=new Date();
+		StringBuilder strBuild=new StringBuilder();
+		//create dir string with filename
+		strBuild.append(ssDir);
+		strBuild.append(dateFormat.format(date));
+		strBuild.append(".png");
+		System.out.println(strBuild);
+		
+		return strBuild.toString();
+		
+		
 	}
 }
