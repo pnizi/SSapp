@@ -17,6 +17,7 @@ public class FullscreenSS implements ISS
 {	
 	private final String ssDir="\\Desktop\\Screenshots\\";
 	private CheckFolder cf=new CheckFolder();
+	private String imgaddress = "";
 	
 	//Fullscreen SS
 	public void screenshot()
@@ -30,6 +31,8 @@ public class FullscreenSS implements ISS
 				BufferedImage image=new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
 				//save to destination
 				ImageIO.write(image,"png",new File(System.getProperty("user.home")+generateImgNameAsTimestamp()));
+				imgaddress = System.getProperty("user.home")+generateImgNameAsTimestamp();
+				Upload.uploadToImgur(imgaddress);
 			} 
 			catch (HeadlessException | AWTException | IOException e)
 			{
