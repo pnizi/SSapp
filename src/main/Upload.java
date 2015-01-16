@@ -10,7 +10,8 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLEncoder;
 import javax.imageio.ImageIO;
-
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 
 public class Upload
@@ -18,15 +19,17 @@ public class Upload
 	private final static String CLIENT_ID ="afc1aa3fddc92fa";
 	private final static String IMGUR_POST_URI= "https://api.imgur.com/3/upload";
 	static BufferedImage imgtoupload = null;
+	private static String imgurResponse="";
 	
 	public static void uploadToImgur(String path)
 	{
 		ByteArrayOutputStream outputstream = new ByteArrayOutputStream();
-		try {
+		try 
+		{
 
 			URL uploadurl = new URL(IMGUR_POST_URI);
 			imgtoupload = ImageIO.read(new File(path)); 
-			System.out.println("Writing the image fuck u xoi");
+			System.out.println("Writing the image");
 			ImageIO.write(imgtoupload, "png", outputstream); 
 			//Encode
 	        String requestparams = URLEncoder.encode("image", "UTF-8") + "=" + URLEncoder.encode(com.sun.org.apache.xml.internal.security.utils.Base64.encode(outputstream.toByteArray()), "UTF-8");
@@ -47,16 +50,23 @@ public class Upload
 	        System.out.println("Request made awaiting results");
  
 	        BufferedReader reader = new BufferedReader(new InputStreamReader(uploadconnection.getInputStream()));
-	        for(String data; (data = reader.readLine()) != null;) {
+	        for(String data; (data = reader.readLine()) != null;) 
+	        {
+	        	 
 	        	 System.out.println(data);
+	        	 setImgurResponse(data);
 	        }
+
 	        reader.close();
-	        
-		} catch (IOException e) {
+		} 
+		catch (IOException e)
+		{
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
+			e.printStackTrace();	
 		}
-	
+	}
+	public static void setImgurResponse(String x)
+	{
+		imgurResponse=x;
 	}
 }
