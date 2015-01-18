@@ -1,5 +1,9 @@
 package main;
 
+import java.awt.Desktop;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -7,11 +11,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
+
 import javax.imageio.ImageIO;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
+
+import java.net.URISyntaxException;
+
 
 
 public class Upload
@@ -56,7 +63,6 @@ public class Upload
 	        BufferedReader reader = new BufferedReader(new InputStreamReader(uploadconnection.getInputStream()));
 	        for(String data; (data = reader.readLine()) != null;) 
 	        {
-	        	 
 	        	 System.out.println(data);
 	        	 setImgurResponse(data);
 	        }
@@ -80,16 +86,48 @@ public class Upload
 	public String getURL()
 	{
 		String imgStr=getImgurResponse();
-		String imgUrl="";
-		String regex="http:\\/\\/i.imgur.com\\/........png";
-		
-		Pattern p=Pattern.compile(regex);
-		
-		Matcher m=p.matcher(imgStr);
-		while(m.find())
-			imgUrl=m.group();
+		//get url from string
+		String imgUrl=imgStr.substring(imgStr.indexOf("link\":\"") + 7, imgStr.indexOf("\"}")).replaceAll("\\\\", "");;
+
 		System.out.println(imgUrl);
 		
 		return imgUrl;	
+	}
+	public void openURL()
+	{
+		String url=getURL();
+		
+		if(Desktop.isDesktopSupported())
+		{
+			Desktop desktop=Desktop.getDesktop();
+			try
+			{
+				//windows
+				desktop.browse(new URI(url));
+			}
+			catch(IOException | URISyntaxException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		else
+		{
+			Runtime runtime=Runtime.getRuntime();
+			try
+			{
+				//ubuntu
+				runtime.exec("xdg-open "+url);
+			}
+			catch(IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+	public void UrlToClipboard()
+	{
+		StringSelection imgLink=new StringSelection(getURL());
+		Clipboard clpbrd=Toolkit.getDefaultToolkit().getSystemClipboard();
+		clpbrd.setContents(imgLink, null);
 	}
 }

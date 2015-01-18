@@ -30,10 +30,12 @@ public class FullscreenSS implements ISS
 				//take SS
 				BufferedImage image=new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
 				//save to destination
-				ImageIO.write(image,"png",new File(System.getProperty("user.home")+generateImgNameAsTimestamp()));
 				imgaddress = System.getProperty("user.home")+generateImgNameAsTimestamp();
+				ImageIO.write(image,"png",new File(imgaddress));
 				Upload upload=new Upload();
-				upload.uploadToImgur(imgaddress);
+				upload.uploadToImgur(imgaddress); 
+				upload.openURL(); //test upload n open link
+				upload.UrlToClipboard(); //test upload n clipboard link
 			} 
 			catch (HeadlessException | AWTException | IOException e)
 			{
