@@ -66,7 +66,6 @@ public class Upload
 	        	 System.out.println(data);
 	        	 setImgurResponse(data);
 	        }
-	        getURL();
 	        reader.close();
 		} 
 		catch (IOException e)
@@ -83,13 +82,11 @@ public class Upload
 	{
 		return imgurResponse;
 	}
-	public String getURL()
+	private String getURL()
 	{
 		String imgStr=getImgurResponse();
 		//get url from string
 		String imgUrl=imgStr.substring(imgStr.indexOf("link\":\"") + 7, imgStr.indexOf("\"}")).replaceAll("\\\\", "");;
-
-		System.out.println(imgUrl);
 		
 		return imgUrl;	
 	}
