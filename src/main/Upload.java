@@ -21,7 +21,7 @@ public class Upload
 	static BufferedImage imgToUpload = null;
 	private static String imgurResponse="";
 	
-	public static void uploadToImgur(String path)
+	public void uploadToImgur(String path)
 	{
 		ByteArrayOutputStream outputstream = new ByteArrayOutputStream();
 		try 
@@ -69,15 +69,15 @@ public class Upload
 			e.printStackTrace();	
 		}
 	}
-	public static void setImgurResponse(String x)
+	public void setImgurResponse(String x)
 	{
 		imgurResponse=x;
 	}
-	public static String getImgurResponse()
+	public String getImgurResponse()
 	{
 		return imgurResponse;
 	}
-	public static String getURL()
+	public String getURL()
 	{
 		String imgStr=getImgurResponse();
 		String imgUrl="";

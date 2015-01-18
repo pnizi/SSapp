@@ -32,7 +32,8 @@ public class FullscreenSS implements ISS
 				//save to destination
 				ImageIO.write(image,"png",new File(System.getProperty("user.home")+generateImgNameAsTimestamp()));
 				imgaddress = System.getProperty("user.home")+generateImgNameAsTimestamp();
-				Upload.uploadToImgur(imgaddress);
+				Upload upload=new Upload();
+				upload.uploadToImgur(imgaddress);
 			} 
 			catch (HeadlessException | AWTException | IOException e)
 			{
