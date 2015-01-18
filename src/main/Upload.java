@@ -18,7 +18,7 @@ public class Upload
 {
 	private final static String CLIENT_ID ="afc1aa3fddc92fa";
 	private final static String IMGUR_POST_URI= "https://api.imgur.com/3/upload";
-	static BufferedImage imgtoupload = null;
+	static BufferedImage imgToUpload = null;
 	private static String imgurResponse="";
 	
 	public static void uploadToImgur(String path)
@@ -28,13 +28,17 @@ public class Upload
 		{
 
 			URL uploadurl = new URL(IMGUR_POST_URI);
-			imgtoupload = ImageIO.read(new File(path)); 
+			imgToUpload = ImageIO.read(new File(path)); 
 			System.out.println("Writing the image");
-			ImageIO.write(imgtoupload, "png", outputstream); 
+			ImageIO.write(imgToUpload, "png", outputstream); 
+			
 			//Encode
-	        String requestparams = URLEncoder.encode("image", "UTF-8") + "=" + URLEncoder.encode(com.sun.org.apache.xml.internal.security.utils.Base64.encode(outputstream.toByteArray()), "UTF-8");
-	        requestparams += "&" + URLEncoder.encode("key", "UTF-8") + "=" + URLEncoder.encode(CLIENT_ID, "UTF-8");
-			//upload
+	        String requestparams = URLEncoder.encode("image", "UTF-8") + 
+	        		"=" +  URLEncoder.encode(com.sun.org.apache.xml.internal.security.utils.Base64.encode(outputstream.toByteArray()), "UTF-8") + 
+	        		"&" + URLEncoder.encode("key", "UTF-8") + "=" + URLEncoder.encode(CLIENT_ID, "UTF-8");
+			
+	        		
+	        //upload
 	        java.net.URLConnection uploadconnection = uploadurl.openConnection();
 	        uploadconnection.setDoOutput(true);
 	        uploadconnection.setDoInput(true);
@@ -42,11 +46,11 @@ public class Upload
 	        uploadconnection.setRequestProperty("Authorization", "Client-ID " + CLIENT_ID);
 	        uploadconnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-	        OutputStreamWriter senddata = new OutputStreamWriter(uploadconnection.getOutputStream());
+	        OutputStreamWriter sendData = new OutputStreamWriter(uploadconnection.getOutputStream());
 
-	        senddata.write(requestparams);
-	        senddata.flush();
-            senddata.close();
+	        sendData.write(requestparams);
+	        sendData.flush();
+            sendData.close();
 	        System.out.println("Request made awaiting results");
  
 	        BufferedReader reader = new BufferedReader(new InputStreamReader(uploadconnection.getInputStream()));
@@ -56,7 +60,7 @@ public class Upload
 	        	 System.out.println(data);
 	        	 setImgurResponse(data);
 	        }
-
+	        getURL();
 	        reader.close();
 		} 
 		catch (IOException e)
@@ -68,5 +72,24 @@ public class Upload
 	public static void setImgurResponse(String x)
 	{
 		imgurResponse=x;
+	}
+	public static String getImgurResponse()
+	{
+		return imgurResponse;
+	}
+	public static String getURL()
+	{
+		String imgStr=getImgurResponse();
+		String imgUrl="";
+		String regex="http:\\/\\/i.imgur.com\\/........png";
+		
+		Pattern p=Pattern.compile(regex);
+		
+		Matcher m=p.matcher(imgStr);
+		while(m.find())
+			imgUrl=m.group();
+		System.out.println(imgUrl);
+		
+		return imgUrl;	
 	}
 }
