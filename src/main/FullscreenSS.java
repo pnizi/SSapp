@@ -71,8 +71,6 @@ public class FullscreenSS implements ISS
 		strBuild.append(".png");
 		System.out.println(strBuild);
 		
-		return strBuild.toString();
-		
-		
+		return strBuild.toString();	
 	}
 }
