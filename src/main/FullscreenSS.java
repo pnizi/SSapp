@@ -45,11 +45,6 @@ public class FullscreenSS implements ISS
 		}
 		
 	}
-	public void hotkey()
-	{
-		//inprog
-		
-	}
 	//generate unique name and formats directory
 	public String generateImgName()
 	{
