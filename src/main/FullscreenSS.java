@@ -30,7 +30,7 @@ public class FullscreenSS implements ISS
 				//take SS
 				BufferedImage image=new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
 				//save to destination
-				imgaddress = System.getProperty("user.home")+generateImgNameAsTimestamp();
+				imgaddress = getFilePath();
 				ImageIO.write(image,"png",new File(imgaddress));
 				Upload upload=new Upload();
 				upload.uploadToImgur(imgaddress); 
@@ -75,5 +75,9 @@ public class FullscreenSS implements ISS
 		System.out.println(strBuild);
 		
 		return strBuild.toString();	
+	}
+	public String getFilePath()
+	{
+		return System.getProperty("user.home")+generateImgNameAsTimestamp();
 	}
 }
