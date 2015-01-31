@@ -15,7 +15,7 @@ public class FTPUpload
 	final static String pass="";
 	static String filePath="";
 	static String uploadPath="";
-	FullscreenSS fs=new FullscreenSS();
+	Screenshot fs=new Screenshot();
 	
 	public void uploadToFTP(String path)
 	{

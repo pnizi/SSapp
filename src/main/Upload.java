@@ -36,6 +36,7 @@ public class Upload
 
 			URL uploadurl = new URL(IMGUR_POST_URI);
 			imgToUpload = ImageIO.read(new File(path)); 
+			
 			System.out.println("Writing the image");
 			ImageIO.write(imgToUpload, "png", outputstream); 
 			
