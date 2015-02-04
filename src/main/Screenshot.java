@@ -4,7 +4,7 @@ import java.awt.AWTException;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
+import java.awt.TrayIcon;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -19,13 +19,17 @@ import java.util.Date;
 
 import javax.imageio.ImageIO;
 
+import de.ksquared.system.mouse.GlobalMouseListener;
+import de.ksquared.system.mouse.MouseAdapter;
+import de.ksquared.system.mouse.MouseEvent;
+
 
 public class Screenshot
 {	
 	private final String ssDir="\\Desktop\\Screenshots\\";
-	private CheckFolder cf=new CheckFolder();
+	private CheckFolder cf = new CheckFolder();
 	private String imgAddress = "";
-	private Upload upload=new Upload();
+	private Upload upload = new Upload();
 	
 	//Fullscreen SS
 	public void fullscreenSS()
@@ -38,14 +42,18 @@ public class Screenshot
 				//take SS
 				BufferedImage image=new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
 				//save to destination
-				imgAddress=getFilePath();
+				imgAddress = getFilePath();
 				//save file
 				ImageIO.write(image,"png",new File(imgAddress));
-				
-				
+
+		      //  TrayManager.trayIcon.displayMessage("x0i's Screenshots",
+            //             "This is an info message", TrayIcon.MessageType.INFO);
+		        TrayManager.trayIcon.displayMessage("Screenshot Taken", "Uploading...", TrayIcon.MessageType.INFO);
 				upload.uploadToImgur(imgAddress); 
+				TrayManager.trayIcon.displayMessage("Uploaded!", "Redirecting to image", TrayIcon.MessageType.INFO);
 				upload.openURL(); //test upload n open link
 				upload.UrlToClipboard(); //test upload n clipboard link
+				TrayManager.trayIcon.displayMessage("Copyed", "Copied to clipboard", TrayIcon.MessageType.INFO);
 			} 
 			catch (AWTException | IOException e)
 			{
@@ -64,7 +72,6 @@ public class Screenshot
 			try
 			{
 				Robot robo=new Robot();
-				Clipboard clipboard=Toolkit.getDefaultToolkit().getSystemClipboard();
 				
 				//Take Screenshots with window HK's
 				robo.keyPress(KeyEvent.VK_ALT);
@@ -89,9 +96,14 @@ public class Screenshot
 				ImageIO.write(image, "png", new File(imgAddress));
 				
 				
+				TrayManager.trayIcon.displayMessage("x0i's Screenshots",
+                         "This is an info message", TrayIcon.MessageType.INFO);
+		        TrayManager.trayIcon.displayMessage("Screenshot Taken", "Uploading...", TrayIcon.MessageType.INFO);
 				upload.uploadToImgur(imgAddress); 
+				TrayManager.trayIcon.displayMessage("Uploaded!", "Redirecting to image", TrayIcon.MessageType.INFO);
 				upload.openURL(); //test upload n open link
 				upload.UrlToClipboard(); //test upload n clipboard link
+				TrayManager.trayIcon.displayMessage("Copyed", "Copied to clipboard", TrayIcon.MessageType.INFO);
 			}
 			catch(AWTException | IOException | UnsupportedFlavorException e)
 			{
@@ -99,6 +111,23 @@ public class Screenshot
 			}
 		}
 	}
+	/*
+	public void captureArea()
+	{	
+		//MouseEvent me1=mouseR
+	}
+	public MouseEvent mouseCord()
+	{
+		new GlobalMouseListener().addMouseListener(new MouseAdapter() 
+        {
+			public  mouseReleased(MouseEvent event)
+			{
+				 return event;
+			}
+			
+        });
+	}
+	*/
 	//generate unique name and formats directory
 	public String generateImgName()
 	{
