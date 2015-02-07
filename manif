@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Created-By: Bundle
+Class-Path: ./resources/jintellitype-1.3.9.jar
+Main-Class: main.run
