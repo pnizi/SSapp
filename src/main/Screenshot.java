@@ -34,10 +34,10 @@ public class Screenshot
     private MouseAdapter MA;
 	
 	
-	public int x1=-1;
-	public int y1=-1;
-	public int x2=-1;
-	public int y2=-1;
+	public int x1;
+	public int y1;
+	public int x2;
+	public int y2;
 	public int counter=-1;
 	
 	//Fullscreen SS
@@ -157,6 +157,10 @@ public class Screenshot
 	
 	public void areaSS()
 	{
+		x1=-1;
+		x2=-1;
+		y1=-1;
+		x2=-1;
 		System.out.println("AreaSS");
 		if(cf.check())
 		{
@@ -186,10 +190,6 @@ public class Screenshot
 				upload.UrlToClipboard(); //test upload n clipboard link
 				Run.TrayMGR.trayIcon.displayMessage("Copyed", "Copied to clipboard", TrayIcon.MessageType.INFO);
 				
-				x1=-1;
-				x2=-1;
-				y1=-1;
-				x2=-1;
 			}
 			catch(AWTException | IOException e)
 			{
