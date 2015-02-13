@@ -123,9 +123,7 @@ public class TrayManager {
 	                } 
 	                else if ("Capture Area".equals(item.getLabel())) 
 	                {
-	                    //type = TrayIcon.MessageType.INFO;
-	                    trayIcon.displayMessage("x0i's Screenshotter",
-	                            "Not available", TrayIcon.MessageType.INFO);
+	                    scrnsht.areaSS();
 	                }
 	            }
 	        };
@@ -160,10 +158,3 @@ public class TrayManager {
 	  }
 }
 
-
-
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 03fbf763a8da783293ba0616d4af451ed63d9bf3
