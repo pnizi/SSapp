@@ -128,4 +128,11 @@ public class Upload
 		Clipboard clpbrd=Toolkit.getDefaultToolkit().getSystemClipboard();
 		clpbrd.setContents(imgLink, null);
 	}
+	public String getkURL()
+	 {
+		 String imgStr=getImgurResponse();
+		 String Kupload =imgStr.substring(imgStr.indexOf(".com\\") + 6, imgStr.indexOf("\"}")).replaceAll("\\\\", "");;
+		 String fullurl = "http://www.ehlenbach.com/kushupload.php?id=" + Kupload;
+		 return fullurl;
+	 }
 }
